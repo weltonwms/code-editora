@@ -27,7 +27,9 @@ class CategoryRequest extends FormRequest
         $id=$category?$category->id:null;
 
         return [
-            'name'=>"required|unique:categories,name,$id"
+            'name'=>"required|max:255|unique:categories,name,$id"
         ];
     }
+    
+    
 }

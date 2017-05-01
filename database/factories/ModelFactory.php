@@ -34,11 +34,12 @@ $factory->define(App\Category::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Book::class, function (Faker\Generator $faker) {
 
-
+$array=  \App\User::pluck('id')->toArray();
     return [
         'title' => ucfirst($faker->unique()->word),
         'subtitle' => ucfirst($faker->unique()->word),
-        'price' =>$faker->randomFloat(2,10,900)
+        'price' =>$faker->randomFloat(2,10,900),
+        'author'=>$faker->randomElement($array)
 
     ];
 });

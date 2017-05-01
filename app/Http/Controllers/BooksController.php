@@ -63,6 +63,7 @@ class BooksController extends Controller
      */
     public function update(BookRequest $request, Book $book)
     {
+        
         $book->update($request->all());
         return redirect()->route('books.index');
     }

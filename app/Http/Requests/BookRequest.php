@@ -4,8 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class BookRequest extends FormRequest
-{
+class BookRequest extends FormRequest {
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -13,6 +13,10 @@ class BookRequest extends FormRequest
      */
     public function authorize()
     {
+        $book = $this->route('book');
+        if ($book && $book->author != \Auth::user()->id):
+            return false;
+        endif;
         return true;
     }
 
@@ -24,9 +28,15 @@ class BookRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'=>'required',
-            'subtitle'=>'required',
-            'price'=>'required',
+            'title' => 'required',
+            'subtitle' => 'required',
+            'price' => 'required',
         ];
     }
+
+    public function forbiddenResponse()
+    {
+        return response()->view('errors.403');
+    }
+
 }
